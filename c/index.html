@@ -33,7 +33,7 @@ p.small { font-size: 12px; color: var(--dark); margin-top: 16px; }
 <script>
 const q = new URLSearchParams(location.search);
 const levels = { easy: "Classic", medium: "Skilled", hard: "Elite", expert: "Legend", crazy: "Supreme", scanned: "Scanned" };
-const clean = s => (s || "").replace(/[<>&"]/g, "").slice(0, 24);
+const clean = s => (s || "").slice(0, 24); // shown with textContent, so nothing needs stripping
 const name = clean(q.get("n")) || "A friend";
 const level = levels[q.get("l")] || "Sudoku";
 document.getElementById("title").textContent = name + " challenges you";
