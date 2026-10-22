@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Sudoku Supreme challenge</title>
+<meta property="og:title" content="You've been challenged on Sudoku Supreme">
+<meta property="og:description" content="Same puzzle, your time against theirs.">
+<style>
+:root { --ink:#0f380f; --dark:#306230; --mid:#8bac0f; --light:#bcd577; --paper:#d8e8a4; }
+* { box-sizing: border-box; }
+body { margin:0; min-height:100vh; font: 16px/1.5 ui-monospace, Menlo, monospace; color: var(--ink);
+       background-color: var(--mid);
+       background-image: linear-gradient(var(--ink) 2px, transparent 2px), linear-gradient(90deg, var(--ink) 2px, transparent 2px);
+       background-size: 32px 32px; display:flex; align-items:center; justify-content:center; padding:16px; }
+.panel { background: var(--paper); border: 4px solid var(--ink); border-radius: 8px; padding: 24px; max-width: 420px; width:100%; text-align:center; }
+h1 { font-size: 20px; margin: 0 0 8px; }
+.stats { display:flex; gap:6px; margin: 16px 0; }
+.stat { flex:1; background: var(--dark); color: var(--paper); border-radius: 4px; padding: 8px 4px; }
+.stat b { display:block; font-size: 18px; }
+.stat span { font-size: 11px; }
+a.button { display:block; background: var(--ink); color: var(--paper); text-decoration:none; padding: 14px; border-radius: 4px; margin-top: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+p.small { font-size: 12px; color: var(--dark); margin-top: 16px; }
+</style></head>
+<body><div class="panel">
+<h1 id="title">You've been challenged</h1>
+<div id="sub">Same puzzle, your time against theirs.</div>
+<div class="stats" id="stats" hidden>
+  <div class="stat"><b id="t">--</b><span>To beat</span></div>
+  <div class="stat"><b id="m">-</b><span>Misses</span></div>
+  <div class="stat"><b id="s">-</b><span>Score</span></div>
+</div>
+<a class="button" id="open" href="sudokusupreme://c">Open in Sudoku Supreme</a>
+<p class="small">Don't have it yet? Sudoku Supreme is coming soon to the App Store. Keep this link: it will open the challenge once the app is installed.</p>
+</div>
+<script>
+const q = new URLSearchParams(location.search);
+const levels = { easy: "Classic", medium: "Skilled", hard: "Elite", expert: "Legend", crazy: "Supreme", scanned: "Scanned" };
+const clean = s => (s || "").replace(/[<>&"]/g, "").slice(0, 24);
+const name = clean(q.get("n")) || "A friend";
+const level = levels[q.get("l")] || "Sudoku";
+document.getElementById("title").textContent = name + " challenges you";
+document.getElementById("sub").textContent = "Same " + level + " puzzle. Score more, or tie and be faster, to win.";
+const t = parseInt(q.get("t") || "", 10);
+if (!isNaN(t)) {
+  document.getElementById("stats").hidden = false;
+  document.getElementById("t").textContent = String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0");
+  document.getElementById("m").textContent = clean(q.get("m")) || "0";
+  document.getElementById("s").textContent = clean(q.get("s")) || "0";
+}
+document.getElementById("open").href = "sudokusupreme://c" + location.search;
+</script>
+</body></html>

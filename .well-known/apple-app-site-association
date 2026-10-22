@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["R3MTG7A2NG.AWarding.Sudoku"],
+        "components": [{ "/": "/c/*", "comment": "Sudoku Supreme challenge links" }]
+      }
+    ]
+  }
+}
